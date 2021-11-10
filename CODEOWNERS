@@ -1,0 +1,7 @@
+# Project members are global code owners -- Prevents any mistakes when requesting reviews
+
+* @bui-brian @jackelyny @Murazor-byte @zshrestha2 @cfulks73
+
+# Limiting some github files that, for the most part, shouldn't be modified
+CODEOWNERS @cfulks73
+.gitignore @cfulks73
