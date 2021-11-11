@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\jackt\\source\\repos\\CardGames\\CardGames\\CardGames.csproj": {}
+    "C:\\Users\\KingM\\Documents\\GitHub\\cards\\CardGames.csproj": {}
   },
   "projects": {
-    "C:\\Users\\jackt\\source\\repos\\CardGames\\CardGames\\CardGames.csproj": {
+    "C:\\Users\\KingM\\Documents\\GitHub\\cards\\CardGames.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jackt\\source\\repos\\CardGames\\CardGames\\CardGames.csproj",
+        "projectUniqueName": "C:\\Users\\KingM\\Documents\\GitHub\\cards\\CardGames.csproj",
         "projectName": "CardGames",
-        "projectPath": "C:\\Users\\jackt\\source\\repos\\CardGames\\CardGames\\CardGames.csproj",
-        "packagesPath": "C:\\Users\\jackt\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jackt\\source\\repos\\CardGames\\CardGames\\obj\\",
+        "projectPath": "C:\\Users\\KingM\\Documents\\GitHub\\cards\\CardGames.csproj",
+        "packagesPath": "C:\\Users\\KingM\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\KingM\\Documents\\GitHub\\cards\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\jackt\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\KingM\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -63,7 +67,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     }
