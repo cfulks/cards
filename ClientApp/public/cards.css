@@ -1,0 +1,235 @@
+.card {
+    box-sizing: border-box;
+    display: inline-block;
+    cursor: pointer;
+    width: 20%;
+    height: 20%;
+}
+
+.cards.clubs.A {
+    background-image: url(cardsfolder/ace_clubs.svg);
+}
+
+.card.diamonds.A {
+    background-image: url(cardsfolder/ace_diamonds.svg);
+}
+
+.card.hearts.A {
+    background-image: url(cardsfolder/ace_hearts.svg);
+}
+
+.card.spades.A {
+    background-image: url(cardsfolder/ace_spades.svg);
+}
+
+.card.clubs.two {
+    background-image: url(cardsfolder/2_clubs.svg);
+}
+
+.card.diamonds.two {
+    background-image: url(cardsfolder/2_diamonds.svg);
+}
+
+.card.hearts.two {
+    background-image: url(cardsfolder/2_hearts.svg);
+}
+
+.card.spades.two {
+    background-image: url(cardsfolder/2_spades.svg);
+}
+
+.card.clubs.three {
+    background-image: url(cardsfolder/3_clubs.svg);
+}
+
+.card.diamonds.three {
+    background-image: url(cardsfolder/3_diamonds.svg);
+}
+
+.card.hearts.three {
+    background-image: url(cardsfolder/3_hearts.svg);
+}
+
+.card.spades.three {
+    background-image: url(cardsfolder/3_spades.svg);
+}
+
+.card.clubs.four {
+    background-image: url(cardsfolder/4_clubs.svg);
+}
+
+.card.diamonds.four {
+    background-image: url(cardsfolder/4_diamonds.svg);
+}
+
+.card.hearts.four {
+    background-image: url(cardsfolder/4_hearts.svg);
+}
+
+.card.spades.four {
+    background-image: url(cardsfolder/4_spades.svg);
+}
+
+.card.clubs.five {
+    background-image: url(cardsfolder/5_clubs.svg);
+}
+
+.card.diamonds.five {
+    background-image: url(cardsfolder/5_diamonds.svg);
+}
+
+.card.hearts.five {
+    background-image: url(cardsfolder/5_hearts.svg);
+}
+
+.card.spades.five {
+    background-image: url(cardsfolder/5_spades.svg);
+}
+
+.card.clubs.six {
+    background-image: url(cardsfolder/6_clubs.svg);
+}
+
+.card.diamonds.six {
+    background-image: url(cardsfolder/6_diamonds.svg);
+}
+
+.card.hearts.six {
+    background-image: url(cardsfolder/6_hearts.svg);
+}
+
+.card.spades.six {
+    background-image: url(cardsfolder/6_spades.svg);
+}
+
+.card.clubs.seven {
+    background-image: url(cardsfolder/7_clubs.svg);
+}
+
+.card.diamonds.seven {
+    background-image: url(cardsfolder/7_diamonds.svg);
+}
+
+.card.hearts.seven {
+    background-image: url(cardsfolder/7_hearts.svg);
+}
+
+.card.spades.seven {
+    background-image: url(cardsfolder/7_spades.svg);
+}
+
+.card.clubs.eight {
+    background-image: url(cardsfolder/8_clubs.svg);
+}
+
+.card.diamonds.eight {
+    background-image: url(cardsfolder/8_diamonds.svg);
+}
+
+.card.hearts.eight {
+    background-image: url(cardsfolder/8_hearts.svg);
+}
+
+.card.spades.eight {
+    background-image: url(cardsfolder/8_spades.svg);
+}
+
+.card.clubs.nine {
+    background-image: url(cardsfolder/9_clubs.svg);
+}
+
+.card.diamonds.nine {
+    background-image: url(cardsfolder/9_diamonds.svg);
+}
+
+.card.hearts.nine {
+    background-image: url(cardsfolder/9_hearts.svg);
+}
+
+.card.spades.nine {
+    background-image: url(cardsfolder/9_spades.svg);
+}
+
+.card.clubs.ten {
+    background-image: url(cardsfolder/10_clubs.svg);
+}
+
+.card.diamonds.ten {
+    background-image: url(cardsfolder/10_diamonds.svg);
+}
+
+.card.hearts.ten {
+    background-image: url(cardsfolder/10_hearts.svg);
+}
+
+.card.spades.ten {
+    background-image: url(cardsfolder/10_spades.svg);
+}
+
+.card.clubs.J {
+    background-image: url(cardsfolder/j_clubs.svg);
+}
+
+.card.diamonds.J {
+    background-image: url(cardsfolder/j_diamonds.svg);
+}
+
+.card.hearts.J {
+    background-image: url(cardsfolder/j_hearts.svg);
+}
+
+.card.spades.J {
+    background-image: url(cardsfolder/j_spades.svg);
+}
+
+.card.clubs.Q {
+    background-image: url(cardsfolder/q_clubs.svg);
+}
+
+.card.diamonds.Q {
+    background-image: url(cardsfolder/q_diamonds.svg);
+}
+
+.card.hearts.Q {
+    background-image: url(cardsfolder/q_hearts.svg);
+}
+
+.card.spades.Q {
+    background-image: url(cardsfolder/q_spades.svg);
+}
+
+.card.clubs.K {
+    background-image: url(cardsfolder/k_clubs.svg);
+}
+
+.card.diamonds.K {
+    background-image: url(cardsfolder/k_diamonds.svg);
+}
+
+.card.hearts.K {
+    background-image: url(cardsfolder/k_hearts.svg);
+}
+
+.card.spades.K {
+    background-image: url(cardsfolder/k_spades.svg);
+}
+
+.card.clubs.blank {
+    background-image: url(cardsfolder/blank_clubs.svg);
+}
+
+.card.diamonds.blank {
+    background-image: url(cardsfolder/blank_diamonds.svg);
+}
+
+.card.hearts.blank {
+    background-image: url(cardsfolder/blank_hearts.svg);
+}
+
+.card.spades.blank {
+    background-image: url(cardsfolder/blank_spades.svg);
+}
+
+.card.back {
+    background-image: url(cardsfolder/card_back.svg);
+}
