@@ -1,0 +1,40 @@
+{
+  "name": "cards",
+  "version": "1.0.0",
+  "description": "Capstone Project for CSCE-361",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "cross-env PORT=8000 node ./src/index.js",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cfulks73/cards.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cfulks73/cards/issues"
+  },
+  "homepage": "https://github.com/cfulks73/cards#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.16.4",
+    "cross-env": "^7.0.3",
+    "jest": "^27.3.1",
+    "regenerator-runtime": "^0.13.9",
+    "supertest": "^6.1.6"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "setupFilesAfterEnv": [
+      "./__test__/setupTests.js"
+    ]
+  }
+}
