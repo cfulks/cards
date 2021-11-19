@@ -9,6 +9,6 @@ describe("BlackjackController", () => {
   it("should return blackjack.html", () => {
     let result = BlackjackController.get(undefined, res, undefined);
     expect(res.sendFile.mock.calls.length).toBe(1);
-    expect(result).toMatch(/src\/views\/blackjack\.html$/);
+    expect(result).toMatch(/src(\/|\\)views(\/|\\)blackjack\.html$/);
   });
 });
