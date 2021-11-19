@@ -10,6 +10,6 @@ describe("ErrorController", () => {
   it("should return error.html", () => {
     let result = ErrorController.get(undefined, res, undefined);
     expect(res.sendFile.mock.calls.length).toBe(1);
-    expect(result).toMatch(/src\/views\/error\.html$/);
+    expect(result).toMatch(/src(\/|\\)views(\/|\\)error\.html$/);
   });
 });
