@@ -13,7 +13,7 @@ const stack7 = [];
 
 
 const createDeck = () =>{
-    for(let i = 0; i < 14; i++){
+    for(let i = 1; i < 14; i++){
         for(let j = 0; j < 4; j++){
             switch(j){
                 case 0:
