@@ -7,7 +7,7 @@ import {
   moveToStack,
   moveToFoundation,
   drawCards,
-} from "../../engine/SolitaireEngine.js";
+} from "../../engines/SolitaireEngine.js";
 
 import Card from "./Card.jsx";
 
