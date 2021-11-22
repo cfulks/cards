@@ -252,23 +252,6 @@ export const moveToFoundation = (
   return false;
 };
 
-// This needs to keep order but it doesn't
-// Align Deck: Draw cards only returns 2 if the first hand is drawn from
-export const drawCards = (gameDeck) => {
-  if (gameDeck.deck.length === 0 && gameDeck.discard.length > 0) {
-    gameDeck.deck = gameDeck.discard.splice(0);
-    gameDeck.deck.forEach((card) => (card.hidden = true));
-    gameDeck.deck.reverse();
-  } else {
-    let need = 3 - gameDeck.deck.length;
-    gameDeck.discard.push(...gameDeck.deck.splice(-3));
-
-    if (need > 0) {
-      gameDeck.discard.push(...gameDeck.discard.splice(0, need));
-    }
-  }
-};
-
 const overlapRect = (X1, Y1, X2, Y2, W, H, CC = 0) => {
   let SI =
     Math.max(0, Math.min(X1 + W, X2 + W) - Math.max(X1, X2)) *
