@@ -151,7 +151,8 @@ class Solitaire extends React.Component {
                   this.gameDeck,
                   key,
                   k,
-                  this.gameDeck[key][i].length - 1
+                  this.gameDeck[key][i].length - 1,
+                  i
                 )
               ) {
                 break out;

@@ -179,7 +179,7 @@ export const calculatePositions = () => {
 export const moveToStack = (x, y, cardSize, gameDeck, key, fKey, i, j) => {
   let stack = gameDeck["stack"][fKey];
   let fromStack;
-  if (key === "discard" || key === "foundation") {
+  if (key === "discard") {
     fromStack = gameDeck[key];
   } else {
     fromStack = gameDeck[key][j];
