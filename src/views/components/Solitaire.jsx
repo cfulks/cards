@@ -113,7 +113,15 @@ class Solitaire extends React.Component {
           }
         }
       } else if (key === "deck") {
+        let anyInHand = false;
+
+        for (let arrKey in this.gameDeck) {
+          this.gameDeck[arrKey]
+            .flat()
+            .forEach((card) => (anyInHand = anyInHand || card.inHand));
+        }
         if (
+          !anyInHand &&
           this.state.x > this.positions.deck.x &&
           this.state.x < this.positions.deck.x + this.cardSize.w &&
           this.state.y > this.positions.deck.y &&
