@@ -2,11 +2,14 @@
   box-sizing: border-box;
   display: inline-block;
   cursor: pointer;
-  width: 20%;
-  height: 20%;
+  width: 7vw; /* 57x88 <<<< DO NOT CHANGE 7vw */
+  height: calc(7vw * 176 / 114);
+
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
-.cards.clubs.A {
+.card.clubs.A {
   background-image: url(../assets/ace_clubs.svg);
 }
 
@@ -232,4 +235,8 @@
 
 .card.back {
   background-image: url(../assets/card_back.svg);
+}
+
+.card.empty {
+  background-image: url(../assets/blank.svg);
 }
