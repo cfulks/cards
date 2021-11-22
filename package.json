@@ -1,12 +1,18 @@
 {
   "name": "cards",
+  "private": true,
   "version": "1.0.0",
   "description": "Capstone Project for CSCE-361",
-  "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "cross-env PORT=8000 node ./src/index.js",
-    "test": "jest"
+    "build": "npm run build:prod",
+    "start": "npm run start:prod",
+    "start:prod": "npm run build:prod && cross-env PORT=8000 node ./src/index.js",
+    "start:dev": "npm run build:dev && cross-env PORT=8000 node ./src/index.js",
+    "test": "jest",
+    "build:dev": "webpack --mode=development",
+    "build:prod": "webpack --mode=production --node-env=production",
+    "watch": "webpack --watch"
   },
   "repository": {
     "type": "git",
@@ -19,14 +25,27 @@
   },
   "homepage": "https://github.com/cfulks73/cards#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "babel-jest": "^27.3.1",
+    "express": "^4.17.1",
+    "prop-types": "^15.7.2",
+    "react": "^0.14.7",
+    "react-dom": "^0.14.7"
   },
   "devDependencies": {
+    "@babel/core": "^7.16.0",
     "@babel/preset-env": "^7.16.4",
+    "@babel/preset-react": "^7.16.0",
+    "@webpack-cli/generators": "^2.4.1",
+    "babel-loader": "^8.2.3",
     "cross-env": "^7.0.3",
+    "css-loader": "^6.5.1",
     "jest": "^27.3.1",
+    "mini-css-extract-plugin": "^2.4.5",
     "regenerator-runtime": "^0.13.9",
-    "supertest": "^6.1.6"
+    "style-loader": "^3.3.1",
+    "supertest": "^6.1.6",
+    "webpack": "^5.64.2",
+    "webpack-cli": "^4.9.1"
   },
   "jest": {
     "testEnvironment": "node",
@@ -35,6 +54,9 @@
     ],
     "setupFilesAfterEnv": [
       "./__test__/setupTests.js"
-    ]
+    ],
+    "transform": {
+      "^.+\\.(js|jsx)$": "babel-jest"
+    }
   }
 }

@@ -125,4 +125,6 @@ dist
 
 .DS_STORE
 
+build/
+public/js/*.js
 obj/

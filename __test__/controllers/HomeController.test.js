@@ -9,6 +9,6 @@ describe("HomeController", () => {
   it("should return index.html", () => {
     let result = HomeController.get(undefined, res, undefined);
     expect(res.sendFile.mock.calls.length).toBe(1);
-    expect(result).toMatch(/src(\/|\\)views(\/|\\)index\.html$/);
+    expect(result).toMatch(/src(\/|\\)views(\/|\\)html(\/|\\)index\.html$/);
   });
 });
