@@ -14,10 +14,10 @@ describe("GET Endpoint", () => {
     app = routes(express());
 
     let filePaths = {
-      blackjack: path.join(__dirname, "../../src/views/blackjack.html"),
-      error: path.join(__dirname, "../../src/views/error.html"),
-      home: path.join(__dirname, "../../src/views/index.html"),
-      solitaire: path.join(__dirname, "../../src/views/solitaire.html"),
+      blackjack: path.join(__dirname, "../../src/views/html/blackjack.html"),
+      error: path.join(__dirname, "../../src/views/html/error.html"),
+      home: path.join(__dirname, "../../src/views/html/index.html"),
+      solitaire: path.join(__dirname, "../../src/views/html/solitaire.html"),
     };
 
     for (let files in filePaths) {
