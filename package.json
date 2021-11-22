@@ -7,8 +7,8 @@
   "scripts": {
     "build": "npm run build:prod",
     "start": "npm run start:prod",
-    "start:prod": "npm run build:prod && cross-env PORT=8000 node ./src/index.js",
-    "start:dev": "npm run build:dev && cross-env PORT=8000 node ./src/index.js",
+    "start:prod": "npm run build:prod && cross-env PORT=8002 node ./src/index.js",
+    "start:dev": "npm run build:dev && cross-env PORT=8002 node ./src/index.js",
     "test": "jest",
     "build:dev": "webpack --mode=development",
     "build:prod": "webpack --mode=production --node-env=production",
