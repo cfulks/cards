@@ -14,6 +14,7 @@ const stylesHandler = isProduction
 const config = {
   entry: {
     solitaire: "./src/views/components/Solitaire.jsx",
+    blackjack: "./src/views/components/Blackjack.jsx",
   },
   output: {
     path: path.resolve(path.resolve(), "public/js"),
