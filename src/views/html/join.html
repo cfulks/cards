@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Blackjack</title>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Dosis&display=swap" rel="stylesheet">
+        <link href="blackjack.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="join">
+            <p>Select an option below to start playing!</p>
+            <div class="play" id="c" onclick="createGame()">Create a new game</div>
+            <div class="play" id="j" onclick="joinCode()">Join game by code</div>
+            <div class="play" id="r" onclick="joinRando()">Join random game</div>
+        </div>
+        <div id="cmodal" class="modal">
+            <div class="modal-content">
+                <span class="close1">&times;</span>
+                <form action="">
+                    <label for="name">Game Name:</label><br>
+                    <input type="text" id="name" name="name"><br>
+                    <p>*You can leave the passcode field empty to allow anyone to join your game.</p>
+                    <label for="pword">Passcode:</label><br>
+                    <input type="text" id="pcode" name="pcode">
+                  </form>
+                <div class="submit" onclick="location.href='blackjack.html';">Play</div>
+            </div>
+        </div>
+        <div id="jmodal" class="modal">
+            <div class="modal-content">
+                <span class="close2">&times;</span>
+                <form action="">
+                    <label for="name">Enter Join Code:</label><br>
+                    <input type="text" id="name" name="name"><br>
+                  </form>
+                <div class="submit" onclick="">Join</div>
+            </div>
+        </div>
+        <div id="rmodal" class="modal">
+            <div class="modal-content">
+                <span class="close3">&times;</span>
+                <label for="name">Choose a game below to start playing with strangers :D</label><br>
+                <div class="submit" onclick="">Join</div>
+            </div>
+        </div>
+    <script src="join.js"></script>
+    </body>
