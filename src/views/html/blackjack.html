@@ -5,17 +5,40 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="css/cards.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Dosis&display=swap"
       rel="stylesheet"
     />
+    <link href="css/blackjack.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
   </head>
   <body>
-    <div id="main"></div>
+    <div class="bank">
+      <button class="bank-button">
+        Bank: $1000<i class="fa fa-caret-down"></i>
+      </button>
+      <div class="container">
+        <button class="allin" onclick="">All In</button>
+        <div class="pokerchip btn one" onclick="bet_one()"></div>
+        <div class="pokerchip btn two" onclick="bet_five()"></div>
+        <div class="pokerchip btn three" onclick="bet_twentyfive()"></div>
+        <div class="pokerchip btn four" onclick="bet_fifty()"></div>
+        <div class="pokerchip btn five" onclick="bet_hundred()"></div>
+        <div class="pokerchip btn six" onclick="bet_fivehundred()"></div>
+        <div class="pokerchip btn seven" onclick="bet_thousand()"></div>
+      </div>
+    </div>
+    <div class="display"></div>
+    <div class="game">
+      <div class="options" onclick="">Hit</div>
+      <div class="options" onclick="">Stand</div>
+      <div class="options" onclick="">Double X2</div>
+    </div>
     <script src="js/blackjack.js"></script>
   </body>
 </html>
