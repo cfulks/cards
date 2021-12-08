@@ -16,7 +16,7 @@ const conversions = [
   "K",
 ];
 
-const shuffleDeck = (deck) => {
+export const shuffleDeck = (deck) => {
   for (let i = 0; i < deck.length; i++) {
     let randIndex = Math.floor(Math.random() * deck.length);
     if (randIndex == deck.length) {
@@ -254,14 +254,14 @@ export const moveToFoundation = (
 
 // This needs to keep order but it doesn't
 // Align Deck: Draw cards only returns 2 if the first hand is drawn from
-export const drawCards = (gameDeck) => {
+export const drawCards = (gameDeck, drawCount = 3) => {
   if (gameDeck.deck.length === 0 && gameDeck.discard.length > 0) {
     gameDeck.deck = gameDeck.discard.splice(0);
     gameDeck.deck.forEach((card) => (card.hidden = true));
     gameDeck.deck.reverse();
   } else {
-    let need = 3 - gameDeck.deck.length;
-    gameDeck.discard.push(...gameDeck.deck.splice(-3));
+    let need = drawCount - gameDeck.deck.length;
+    gameDeck.discard.push(...gameDeck.deck.splice(-drawCount));
 
     if (need > 0) {
       gameDeck.discard.push(...gameDeck.discard.splice(0, need));
