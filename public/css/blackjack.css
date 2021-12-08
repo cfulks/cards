@@ -9,11 +9,10 @@
   width: 300px;
   background: #746a73;
   position: absolute;
-
 }
 
 .bank-button {
-  font-family: 'Dosis', sans-serif;
+  font-family: "Dosis", sans-serif;
   padding-top: 40px;
   padding-bottom: 40px;
   font-size: 20px;
@@ -21,7 +20,7 @@
   display: block;
   border: none;
   background: none;
-  width:100%;
+  width: 100%;
   cursor: pointer;
   outline: none;
 }
@@ -79,15 +78,95 @@
   border-radius: 50%;
   top: 20px;
   left: 20px;
-  text-shadow: -1px -1px 0px rgba(0, 0, 0, 0.3), 1px 1px 0px rgba(255, 255, 255, 0.2);
+  text-shadow: -1px -1px 0px rgba(0, 0, 0, 0.3),
+    1px 1px 0px rgba(255, 255, 255, 0.2);
 }
 
 .btn {
-  background-image: linear-gradient(0deg, transparent 0, transparent 67.5px, #fff 67.5px, #fff 83.5px, transparent 83.5px, transparent 151px), linear-gradient(60deg, transparent 0, transparent 97.4304px, #fff 97.4304px, #fff 113.4304px, transparent 113.4304px, transparent 151px), linear-gradient(120deg, #222222 0, #222222 97.4304px, #fff 97.4304px, #fff 113.4304px, #222222 113.4304px, #222222 151px);
+  background-image: linear-gradient(
+      0deg,
+      transparent 0,
+      transparent 67.5px,
+      #fff 67.5px,
+      #fff 83.5px,
+      transparent 83.5px,
+      transparent 151px
+    ),
+    linear-gradient(
+      60deg,
+      transparent 0,
+      transparent 97.4304px,
+      #fff 97.4304px,
+      #fff 113.4304px,
+      transparent 113.4304px,
+      transparent 151px
+    ),
+    linear-gradient(
+      120deg,
+      #222222 0,
+      #222222 97.4304px,
+      #fff 97.4304px,
+      #fff 113.4304px,
+      #222222 113.4304px,
+      #222222 151px
+    );
 }
 .btn:before {
   border: 8px solid #222222;
-  background-image: linear-gradient(0deg, transparent 0, transparent 69.5px, #EBEBEB 69.5px, #EBEBEB 81.5px, transparent 81.5px, transparent 151px), linear-gradient(30deg, transparent 0, transparent 98.7104px, #EBEBEB 98.7104px, #EBEBEB 110.7104px, transparent 110.7104px, transparent 151px), linear-gradient(60deg, transparent 0, transparent 98.7104px, #EBEBEB 98.7104px, #EBEBEB 110.7104px, transparent 110.7104px, transparent 151px), linear-gradient(90deg, transparent 0, transparent 69.5px, #EBEBEB 69.5px, #EBEBEB 81.5px, transparent 81.5px, transparent 151px), linear-gradient(120deg, transparent 0, transparent 98.7104px, #EBEBEB 98.7104px, #EBEBEB 110.7104px, transparent 110.7104px, transparent 151px), linear-gradient(150deg, #000000 0, #000000 98.7104px, #EBEBEB 98.7104px, #EBEBEB 110.7104px, #000000 110.7104px, #000000 151px);
+  background-image: linear-gradient(
+      0deg,
+      transparent 0,
+      transparent 69.5px,
+      #ebebeb 69.5px,
+      #ebebeb 81.5px,
+      transparent 81.5px,
+      transparent 151px
+    ),
+    linear-gradient(
+      30deg,
+      transparent 0,
+      transparent 98.7104px,
+      #ebebeb 98.7104px,
+      #ebebeb 110.7104px,
+      transparent 110.7104px,
+      transparent 151px
+    ),
+    linear-gradient(
+      60deg,
+      transparent 0,
+      transparent 98.7104px,
+      #ebebeb 98.7104px,
+      #ebebeb 110.7104px,
+      transparent 110.7104px,
+      transparent 151px
+    ),
+    linear-gradient(
+      90deg,
+      transparent 0,
+      transparent 69.5px,
+      #ebebeb 69.5px,
+      #ebebeb 81.5px,
+      transparent 81.5px,
+      transparent 151px
+    ),
+    linear-gradient(
+      120deg,
+      transparent 0,
+      transparent 98.7104px,
+      #ebebeb 98.7104px,
+      #ebebeb 110.7104px,
+      transparent 110.7104px,
+      transparent 151px
+    ),
+    linear-gradient(
+      150deg,
+      #000000 0,
+      #000000 98.7104px,
+      #ebebeb 98.7104px,
+      #ebebeb 110.7104px,
+      #000000 110.7104px,
+      #000000 151px
+    );
 }
 .btn.one:after {
   content: "1";
@@ -142,8 +221,8 @@
 }
 
 .game {
-  text-align: center;     
-  font-family: 'Dosis', sans-serif;
+  text-align: center;
+  font-family: "Dosis", sans-serif;
   color: white;
   padding: 20px;
   margin: auto;
@@ -158,7 +237,7 @@
   font-size: 20px;
 }
 
-.options:hover{
+.options:hover {
   color: #746a73;
 }
 
@@ -171,13 +250,13 @@
   align-items: center;
   text-align: center;
   margin-top: 220px;
-  }
+}
 
 .join p {
   color: #746a73;
   background-color: white;
   text-align: center;
-  font-family: 'Dosis', sans-serif;
+  font-family: "Dosis", sans-serif;
   padding-top: 15px;
   font-size: large;
 }
@@ -188,10 +267,10 @@
   padding: 15px;
   color: white;
   margin: 25px;
-  font-family: 'Dosis', sans-serif;
+  font-family: "Dosis", sans-serif;
 }
 
-.play:hover{
+.play:hover {
   color: #746a73;
 }
 
@@ -214,7 +293,7 @@
 }
 
 .modal-content p {
-  font-family: 'Dosis', sans-serif;
+  font-family: "Dosis", sans-serif;
   color: #746a73;
   background-color: white;
 }
@@ -224,19 +303,19 @@
 }
 
 .modal-content label {
-  font-family: 'Dosis', sans-serif;
+  font-family: "Dosis", sans-serif;
   color: #746a73;
   background-color: white;
 }
 
 input {
-  font-family: 'Dosis', sans-serif;
+  font-family: "Dosis", sans-serif;
   color: white;
   font-size: 15px;
 }
 
 .submit {
-  font-family: 'Dosis', sans-serif;
+  font-family: "Dosis", sans-serif;
   color: #746a73;
   background-color: white;
   width: 12%;
@@ -247,11 +326,13 @@ input {
   cursor: pointer;
 }
 
-.submit:hover{
+.submit:hover {
   color: #b38d97;
 }
 
-.close1, .close2, .close3 {
+.close1,
+.close2,
+.close3 {
   color: #aaa;
   float: right;
   font-size: 25px;

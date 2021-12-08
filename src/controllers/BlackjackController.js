@@ -7,8 +7,13 @@ class BlackjackController {
     );
   }
 
-  static hit(callback) {
-    callback(1, "hearts", "Red");
+  static hit(id) {
+    return (callback) => {
+      // Something like BlackjackEngine.getGame(id).drawCard(player)
+      // then use callback for sending the card back to the player
+      // Other players should be sent a blank card ("0 card back")
+      callback(1, "hearts", "Red");
+    };
   }
 }
 
