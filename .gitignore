@@ -129,4 +129,6 @@ build/
 public/js/*.js
 obj/
 
+!public/js/join.js
+
 .vs
