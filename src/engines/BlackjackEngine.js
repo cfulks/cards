@@ -150,7 +150,7 @@ class Game {
         handValue += playerhand[v].value;
       }
 
-      if(numAces >= 1){
+      if(numAces > 0){
         if(handValue + 11 > 21){
           handValue += numAces;
         }
@@ -223,8 +223,13 @@ class Game {
          * The dealer's decisions, then, are automatic on all plays, whereas the player always has the option of taking one or more cards.
          */
 
-
-
+        //dealer must stand if their first two cards >= 17
+          if(this.calculateCardValue(this.dealer) < 17){
+            do{
+              this.dealer.push(BlackjackEngine.deck[
+                Math.floor(BlackjackEngine.deck.length * Math.random())]);
+            }while(this.calculateCardValue(this.dealer) < 17);
+          }
 
           //locking players out when they go broke
           for (let p in this.players) {
