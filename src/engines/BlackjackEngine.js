@@ -236,7 +236,7 @@ class Game {
               if (this.players[p].bank <= 0) {
                   this.players[p].socket.disconnect(true);
               }
-              
+
           }
 
       }
