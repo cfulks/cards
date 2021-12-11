@@ -134,8 +134,58 @@ class Game {
     );
   }
 
-  calculateCardValue(player) {
-    return 0;
+  calculateCardValue(hand) {
+    let handValue = 0;
+    let numAces = 0;
+
+    for(let v = 0; v < hand.length; v++) {
+      if(player.hand[v].value === 1){
+        numAces++;
+      }
+      else if(player.hand[v].value === 10 || player.hand[v].value === 11
+        || player.hand[v].value === 12 || player.hand[v].value === 13){
+          handValue += 10;
+        }
+      else{
+        handValue += playerhand[v].value;
+      }
+
+       //depending on number of Aces in players hand
+       switch(numAces){
+         case 1:
+          if(handValue + 11 > 21){
+            handValue += 1;
+          }else{
+            handValue += 11;
+          }
+         break;
+         case 2:
+           //one ace is an 11 and the other a 1
+          if(handValue + 12 > 21){
+            handValue +=2;
+          }else{
+            handValue += 12;
+          }
+         break;
+         case 3:
+          if(handValue + 13 > 21){
+            handValue += 3;
+          }else{
+            handValue += 13;
+          }
+         break;
+         case 4:
+          if(handValue + 14 > 21){
+            handValue += 4;
+          }else{
+            handValue += 14;
+          }
+         break;
+         default:
+           continue;
+       }
+    }
+    return handValue;
   }
 
   drawCard = (player) => {
@@ -192,8 +242,15 @@ class Game {
       if (!playerHit) {
         // DEALER LOGIC GOES HERE
         /** Source: https://bicyclecards.com/how-to-play/blackjack/
-         * When the dealer has served every player, the dealers face-down card is turned up. If the total is 17 or more, it must stand. If the total is 16 or under, they must take a card. The dealer must continue to take cards until the total is 17 or more, at which point the dealer must stand. If the dealer has an ace, and counting it as 11 would bring the total to 17 or more (but not over 21), the dealer must count the ace as 11 and stand. The dealer's decisions, then, are automatic on all plays, whereas the player always has the option of taking one or more cards.
+         * When the dealer has served every player, the dealers face-down card is turned up. If the total is 17 or more, it must stand. 
+         * If the total is 16 or under, they must take a card. The dealer must continue to take cards until the total is 17 or more, at which point the dealer must stand. 
+         * If the dealer has an ace, and counting it as 11 would bring the total to 17 or more (but not over 21), the dealer must count the ace as 11 and stand. 
+         * The dealer's decisions, then, are automatic on all plays, whereas the player always has the option of taking one or more cards.
          */
+        
+
+
+
       }
     }
 
