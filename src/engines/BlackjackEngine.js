@@ -150,40 +150,14 @@ class Game {
         handValue += playerhand[v].value;
       }
 
-       //depending on number of Aces in players hand
-       switch(numAces){
-         case 1:
-          if(handValue + 11 > 21){
-            handValue += 1;
-          }else{
-            handValue += 11;
-          }
-         break;
-         case 2:
-           //one ace is an 11 and the other a 1
-          if(handValue + 12 > 21){
-            handValue +=2;
-          }else{
-            handValue += 12;
-          }
-         break;
-         case 3:
-          if(handValue + 13 > 21){
-            handValue += 3;
-          }else{
-            handValue += 13;
-          }
-         break;
-         case 4:
-          if(handValue + 14 > 21){
-            handValue += 4;
-          }else{
-            handValue += 14;
-          }
-         break;
-         default:
-           continue;
-       }
+      if(numAces >= 1){
+        if(handValue + 11 > 21){
+          handValue += numAces;
+        }
+        else{
+          handValue += 11 + (numAces -1);
+        }
+      }
     }
     return handValue;
   }
@@ -249,12 +223,15 @@ class Game {
          * The dealer's decisions, then, are automatic on all plays, whereas the player always has the option of taking one or more cards.
          */
 
+
+
+
           //locking players out when they go broke
           for (let p in this.players) {
               if (this.players[p].bank <= 0) {
                   this.players[p].socket.disconnect(true);
               }
-                  
+              
           }
 
       }
