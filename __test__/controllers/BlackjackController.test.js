@@ -11,4 +11,8 @@ describe("BlackjackController", () => {
     expect(res.sendFile.mock.calls.length).toBe(1);
     expect(result).toMatch(/src(\/|\\)views(\/|\\)html(\/|\\)blackjack\.html$/);
   });
+
+  it("should return callback", () => {
+    expect(BlackjackController.hit(undefined)).toBeInstanceOf(Function);
+  });
 });

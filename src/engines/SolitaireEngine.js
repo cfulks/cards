@@ -117,7 +117,9 @@ export const alignDeck = (
   y,
   adjust = true,
   topDown = false,
-  horizontal = false
+  horizontal = false,
+  scale = 1,
+  unlimited = false
 ) => {
   for (
     let i = horizontal ? cards.length - 1 : 0;
@@ -125,16 +127,26 @@ export const alignDeck = (
     horizontal ? i-- : i++
   ) {
     if (horizontal || (i === cards.length - 1 && !topDown)) {
-      cards[i].hidden = false;
+      if (!topDown) {
+        cards[i].hidden = false;
+      }
     }
 
     cards[i].inHand = false;
 
     Object.assign(cards[i].internalCard.props.position, { x: 0, y: 0 });
-    cards[i].updateCardPosition(
-      x + (horizontal ? ((i + 3 - (cards.length % 3)) % 3) * 25 : 0),
-      y + (!horizontal && adjust ? i * 20 : 0)
-    );
+
+    if (unlimited) {
+      cards[i].updateCardPosition(
+        x + (horizontal ? i * 25 * scale : 0),
+        y + (!horizontal && adjust ? i * 20 * scale : 0)
+      );
+    } else {
+      cards[i].updateCardPosition(
+        x + (horizontal ? ((i + 3 - (cards.length % 3)) % 3) * 25 * scale : 0),
+        y + (!horizontal && adjust ? i * 20 * scale : 0)
+      );
+    }
   }
 
   return cards;

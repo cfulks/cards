@@ -2,6 +2,8 @@ import React from "react";
 import Card from "../views/components/Card.jsx";
 
 class CardModel {
+  static keyCounter = 0;
+
   constructor(value, cardName, suit, color, hidden = true, x = 0, y = 0) {
     this.value = value;
     this.suit = suit;
@@ -20,7 +22,7 @@ class CardModel {
         moving={false}
         position={{ x, y }}
         pickUpCard={this.pickUpCard}
-        key={"CARD-" + cardName + suit + value}
+        key={"CARD-" + cardName + suit + value + CardModel.keyCounter++}
       />
     );
 
@@ -46,7 +48,13 @@ class CardModel {
         moving={x1 < 100 || y1 < 100}
         position={{ x: this.x, y: this.y }}
         pickUpCard={this.pickUpCard}
-        key={"CARD-" + this.cardName + this.suit + this.value}
+        key={
+          "CARD-" +
+          this.cardName +
+          this.suit +
+          this.value +
+          CardModel.keyCounter++
+        }
       />
     );
   };

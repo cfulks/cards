@@ -1,26 +1,33 @@
 import BlackjackController from "../controllers/BlackjackController.js";
+import BlackjackEngine from "../engines/BlackjackEngine.js";
 
 const sockets = (io) => {
   io.on("connection", (socket) => {
     const gameId = socket.handshake.query.id;
     if (!io.sockets.adapter.rooms.get(gameId)) {
-      // create blackjack instance for id from BlackjackEngine.js
+      BlackjackEngine.createGame(gameId, io);
     }
 
     socket.join(gameId);
-    // BlackjackEngine.getGame(gameId).addPlayer(socketId)
+    BlackjackEngine.getGame(gameId).addPlayer(socket.id, socket);
 
-    socket.on("hit", BlackjackController.hit(gameId));
-    //socket.on("stay", BlackjackController.stay);
-    //socket.on("double_down", BlackjackController.doubleDown);
+    socket.on("hit", BlackjackController.hit(gameId, socket.id));
+    socket.on("stand", BlackjackController.stand(gameId, socket.id));
+    socket.on("bet", BlackjackController.bet(gameId, socket.id));
 
-    socket.on("close", () => {
-      // remove player from game
-      // if game is empty, get rid of it after 1 minute setTimeout(() => {if empty: remove, else: don't}, 60000)
+    socket.on("disconnect", () => {
+      BlackjackEngine.getGame(gameId).removePlayer(socket.id);
+      if (Object.keys(BlackjackEngine.getGame(gameId).players).length === 0) {
+        BlackjackEngine.removeGame(gameId);
+      } else {
+        BlackjackEngine.getGame(gameId).playerTurn--;
+        BlackjackEngine.getGame(gameId).updateGame();
+      }
     });
   });
 
   BlackjackController.io = io;
+  BlackjackEngine.build();
 
   return io;
 };

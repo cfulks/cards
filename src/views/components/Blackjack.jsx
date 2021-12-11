@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import io from "socket.io-client";
 import Card from "../../models/CardModel";
+import { alignDeck } from "../../engines/SolitaireEngine.js";
 
 const conversions = [
   "A",
@@ -29,35 +30,115 @@ class Blackjack extends React.Component {
       query: {
         id: this.gameId,
       },
+      reconnection: false,
     });
 
     this.state = {
-      hand: [],
+      player: [],
+      dealer: [],
+      bets: [],
+      currentBet: 0,
+      playerCount: 1,
+      turn: false,
+      bank: 1000,
     };
 
     this.bet = this.bet.bind(this);
+    this.stand = this.stand.bind(this);
     this.hit = this.hit.bind(this);
+
+    this.resizeHandler = this.resizeHandler.bind(this);
+  }
+
+  // prettier-ignore
+  resizeHandler() {
+    const cardWidth = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0) * 0.07 / 2;
+    const x = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0) / 2;
+    const y = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0) / 2 - (x * 0.07 * 176) / 114 / 2;
+      
+
+    if (this.state.player.length !== 0) {
+      this.setState({
+        player: alignDeck(this.state.player, x - (50 * this.state.player.length-1 + cardWidth) / 2, y + y/4, undefined, false, true, 2, true),
+        dealer: alignDeck(this.state.dealer, x - (50 * this.state.dealer.length-1 + cardWidth) / 2, y - y/4, undefined, true, true, 2, true),
+      });
+    }
+
+    this.forceUpdate();
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.resizeHandler);
+  }
+
+  // prettier-ignore
+  componentDidMount() {
+    window.addEventListener("resize", this.resizeHandler);
+    this.client.on("setup", (numOfPlayers, startingHand, dealerHand) => {
+      this.setState({
+        playerCount: numOfPlayers,
+        player: 
+          [
+            new Card(startingHand[0].value, conversions[startingHand[0].value - 1], startingHand[0].suit, startingHand[0].color, false, 0, 0),
+            new Card(startingHand[1].value, conversions[startingHand[1].value - 1], startingHand[1].suit, startingHand[1].color, false, 0, 0),
+          ],
+        dealer:
+          [
+            new Card(dealerHand.value, conversions[dealerHand.value - 1], dealerHand.suit, dealerHand.color, false, 0, 0),
+            new Card("blank", "blank", "blank", "blank", true, 0, 0),
+          ],
+      });
+
+      this.resizeHandler();
+    });
+
+    this.client.on("game_update", (numOfPlayers, dealerCardCount, bets, turn) => {
+      // any changes to dealer and other players
+      this.setState({
+        playerCount: numOfPlayers,
+        dealer: [...this.state.dealer, ...Array(Math.max(this.state.dealer.length - dealerCardCount, 0)).fill(new Card("blank", "blank", "blank", "blank", true, 0, 0))],
+        bets: bets || [],
+        turn: this.client.id === turn,
+      });
+
+      this.resizeHandler();
+    });
+
+    this.client.on("update_hand", (hand) => {
+      this.setState({
+        player: hand.map(c => new Card(c.value, conversions[c.value - 1], c.suit, c.color, false, 0, 0))
+      })
+    })
   }
 
   hit() {
-    this.client.emit("hit", (value, suit, color) => {
-      this.setState({
-        hand: [
-          ...this.state.hand,
-          new Card(value, conversions[value - 1], suit, color, false, 500, 500),
-        ],
-      });
-    });
+    if (this.state.turn) {
+      this.client.emit("hit");
+    }
   }
 
   bet(value) {
-    return () => {
-      console.log(value);
-    };
+    if (this.state.turn) {
+      return () => {
+        this.client.emit("bet", value, (verify) => {
+          if (verify) {
+            this.setState({
+              bank: this.state.bank - value,
+            });
+          }
+        });
+      };
+    }
+  }
+
+  stand() {
+    if (this.state.turn) {
+      this.client.emit("stand");
+    }
   }
 
   render() {
-    const { hand } = this.state;
+    const { player, dealer, bets, currentBet, bank } = this.state;
 
     return (
       <div id="game">
@@ -75,10 +156,11 @@ class Blackjack extends React.Component {
               }
             }}
           >
-            Bank: $1000<i className="fa fa-caret-down"></i>
+            Bank: ${bank}
+            <i className="fa fa-caret-down"></i>
           </button>
           <div className="container" style={{ display: "block" }}>
-            <button className="allin" onClick={this.bet(-1)}>
+            <button className="allin" onClick={this.bet(bank)}>
               All In
             </button>
             <div className="pokerchip btn one" onClick={this.bet(1)}></div>
@@ -90,18 +172,18 @@ class Blackjack extends React.Component {
             <div className="pokerchip btn seven" onClick={this.bet(1000)}></div>
           </div>
         </div>
-        <div className="display"></div>
         <div className="game">
           <div className="options" onClick={this.hit}>
             Hit
           </div>
-          <div className="options" onClick="">
+          <div className="options" onClick={this.stand}>
             Stand
           </div>
-          <div className="options" onClick="">
+          <div className="options" onClick={this.bet(currentBet * 2)}>
             Double X2
           </div>
-          {hand.map((card) => card.internalCard)}
+          {player.map((card) => card.internalCard)}
+          {dealer.map((card) => card.internalCard)}
         </div>
       </div>
     );

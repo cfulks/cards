@@ -1,4 +1,5 @@
 import path from "path";
+import BlackjackEngine from "../engines/BlackjackEngine.js";
 
 class BlackjackController {
   static get(req, res, next) {
@@ -7,12 +8,31 @@ class BlackjackController {
     );
   }
 
-  static hit(id) {
-    return (callback) => {
-      // Something like BlackjackEngine.getGame(id).drawCard(player)
-      // then use callback for sending the card back to the player
-      // Other players should be sent a blank card ("0 card back")
-      callback(1, "hearts", "Red");
+  static hit(gameId, socketId) {
+    return () => {
+      if (
+        BlackjackEngine.getGame(gameId).currentTurn(socketId) &&
+        BlackjackEngine.getGame(gameId).calculateCardValue(socketId) < 21
+      ) {
+        BlackjackEngine.getGame(gameId).players[socketId].drawCard = true;
+        BlackjackEngine.getGame(gameId).updateGame();
+      }
+    };
+  }
+
+  static stand(gameId, socketId) {
+    return () => {
+      if (BlackjackEngine.getGame(gameId).currentTurn(socketId)) {
+        BlackjackEngine.getGame(gameId).updateGame();
+      }
+    };
+  }
+
+  static bet(gameId, socketId) {
+    return (amount, callback) => {
+      let success = BlackjackEngine.getGame(gameId).bet(socketId, amount);
+      callback(success);
+      BlackjackEngine.getGame(gameId).updateGame();
     };
   }
 }
