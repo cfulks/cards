@@ -248,9 +248,28 @@ class Game {
          * If the dealer has an ace, and counting it as 11 would bring the total to 17 or more (but not over 21), the dealer must count the ace as 11 and stand. 
          * The dealer's decisions, then, are automatic on all plays, whereas the player always has the option of taking one or more cards.
          */
-
-          //locking players out when they go broke
+         
+        
           for (let p in this.players) {
+
+              //Betting payout
+              if (this.calculateCardValue(this.players[p].hand) > 21) {
+                  this.players[p].bank = this.players[p].bank - this.players[p].bet;
+              }
+
+              if (this.calculateCardValue(this.dealer) > 21) {
+                  this.players[p].bank = this.players[p].bank + 2 * this.players[p].bet;
+              }
+
+              if (this.calculateCardValue(this.players[p].hand) > this.calculateCardValue(this.dealer)) {
+                  this.players[p].bank = this.players[p].bank + 2 * this.players[p].bet;
+              }
+
+              if (this.calculateCardValue(this.players[p].hand) <= this.calculateCardValue(this.dealer){
+                  this.players[p].bank = this.players[p].bank - this.players[p].bet;
+              }
+
+              //locking out player when they go broke
               if (this.players[p].bank <= 0) {
                   this.players[p].socket.disconnect(true);
               }
