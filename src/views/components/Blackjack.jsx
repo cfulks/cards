@@ -182,6 +182,11 @@ class Blackjack extends React.Component {
             <div className="pokerchip btn seven" onClick={this.bet(1000)}></div>
           </div>
         </div>
+        <div className="board">
+            Board
+            {bets[0].playerName}
+            {bets[0].bet}
+        </div>
         <div className="game">
           <div className="options" onClick={this.hit}>
             Hit
