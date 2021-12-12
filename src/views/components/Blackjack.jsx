@@ -40,6 +40,7 @@ class Blackjack extends React.Component {
       currentBet: 0,
       playerCount: 1,
       turn: false,
+      turnNumber: 1,
       bank: 1000,
     };
 
@@ -89,19 +90,21 @@ class Blackjack extends React.Component {
           ],
         bank: bank,
         turn: this.client.id === turn,
-        bet: this.state.bets.map(bet => bet.bet = 0)
+        currentBet: 0,
+        turnNumber: 1
       });
 
       this.resizeHandler();
     });
 
-    this.client.on("game_update", (numOfPlayers, dealerCardCount, bets, turn) => {
+    this.client.on("game_update", (numOfPlayers, dealerCardCount, bets, turn, turnNumber) => {
       // any changes to dealer and other players
       this.setState({
         playerCount: numOfPlayers,
         dealer: [...this.state.dealer, ...Array(Math.max(this.state.dealer.length - dealerCardCount, 0)).fill(new Card("blank", "blank", "blank", "blank", true, 0, 0))],
         bets: bets || [],
         turn: this.client.id === turn,
+        turnNumber: turnNumber
       });
 
       this.resizeHandler();
@@ -149,9 +152,9 @@ class Blackjack extends React.Component {
   }
 
   render() {
-    const { player, dealer, bets, currentBet, bank } = this.state;
+    const { player, dealer, bets, currentBet, bank, turnNumber } = this.state;
 
-    console.log(bets);
+    let inc = turnNumber - 1;
 
     return (
       <div id="game">
@@ -188,7 +191,15 @@ class Blackjack extends React.Component {
         <div className="board">
           Board
           <p>
-            {bets.map((bet) => "\n" + bet.playerName + ": " + "$" + bet.bet)}
+            {bets.map((bet) =>
+              inc-- == 0 ? (
+                <span style={{ color: "#00ff55" }}>
+                  {bet.playerName + ": " + "$" + bet.bet}
+                </span>
+              ) : (
+                bet.playerName + ": " + "$" + bet.bet
+              )
+            )}
           </p>
         </div>
         <div className="game">
