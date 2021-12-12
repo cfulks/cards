@@ -18,7 +18,7 @@
       <p>Select an option below to start playing!</p>
       <div class="play" id="c" onclick="createGame()">Create a new game</div>
       <div class="play" id="j" onclick="joinCode()">Join game by code</div>
-      <div class="play" id="r" onclick="joinRando()">Join random game</div>
+      <div class="play" id="r" onclick="joinRando()">Join main room</div>
     </div>
     <div id="cmodal" class="modal">
       <div class="modal-content">
@@ -59,9 +59,9 @@
       <div class="modal-content">
         <span class="close3">&times;</span>
         <label for="name"
-          >Choose a game to join:</label
+          >You will be connected to the public server</label
         ><br />
-        <div class="submit" onclick="">Join</div>
+        <div class="submit" onclick="location.href = 'blackjack/0' ">Join</div>
       </div>
     </div>
     <script src="js/join.js"></script>
