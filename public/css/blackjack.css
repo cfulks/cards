@@ -10,6 +10,10 @@
   position: absolute;
 }
 
+.bank span {
+  background-color: #746a73;
+}
+
 .board {
   width: 300px;
   background: #746a73;
@@ -21,6 +25,16 @@
   font-size: 20px;
   color: white;
   text-align: center;
+}
+
+.board span {
+  background-color: #746a73;
+  display: block;
+}
+
+.board p {
+ background-color: #746a73;
+ color: white;
 }
 
 
