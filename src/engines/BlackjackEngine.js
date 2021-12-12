@@ -136,20 +136,21 @@ class Game {
 
   calculateCardValue(hand) {
     let handValue = 0;
-    let numAces = 0;
+      let numAces = 0;
+
 
     for (let v = 0; v < hand.length; v++) {
-      if (player.hand[v].value === 1) {
+      if (hand[v].value === 1) {
         numAces++;
       } else if (
-        player.hand[v].value === 10 ||
-        player.hand[v].value === 11 ||
-        player.hand[v].value === 12 ||
-        player.hand[v].value === 13
+        hand[v].value === 10 ||
+        hand[v].value === 11 ||
+        hand[v].value === 12 ||
+        hand[v].value === 13
       ) {
         handValue += 10;
       } else {
-        handValue += playerhand[v].value;
+        handValue += hand[v].value;
       }
 
       if (numAces > 0) {

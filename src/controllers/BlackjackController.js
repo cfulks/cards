@@ -12,7 +12,7 @@ class BlackjackController {
     return () => {
       if (
         BlackjackEngine.getGame(gameId).currentTurn(socketId) &&
-        BlackjackEngine.getGame(gameId).calculateCardValue(socketId)(
+        BlackjackEngine.getGame(gameId).calculateCardValue(
           BlackjackEngine.getGame(gameId).players[socketId].hand
          ) < 21
       ) {
