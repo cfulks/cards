@@ -138,24 +138,25 @@ class Game {
     let handValue = 0;
     let numAces = 0;
 
-    for(let v = 0; v < hand.length; v++) {
-      if(player.hand[v].value === 1){
+    for (let v = 0; v < hand.length; v++) {
+      if (player.hand[v].value === 1) {
         numAces++;
-      }
-      else if(player.hand[v].value === 10 || player.hand[v].value === 11
-        || player.hand[v].value === 12 || player.hand[v].value === 13){
-          handValue += 10;
-        }
-      else{
+      } else if (
+        player.hand[v].value === 10 ||
+        player.hand[v].value === 11 ||
+        player.hand[v].value === 12 ||
+        player.hand[v].value === 13
+      ) {
+        handValue += 10;
+      } else {
         handValue += playerhand[v].value;
       }
 
-      if(numAces > 0){
-        if(handValue + 11 > 21){
+      if (numAces > 0) {
+        if (handValue + 11 > 21) {
           handValue += numAces;
-        }
-        else{
-          handValue += 11 + (numAces -1);
+        } else {
+          handValue += 11 + (numAces - 1);
         }
       }
     }
@@ -188,8 +189,7 @@ class Game {
   updateGame = () => {
     this.playerTurn++;
     let bets = [];
-      let counter = 1;
-      
+    let counter = 1;
 
     for (let p in this.players) {
       bets.push({
@@ -217,52 +217,53 @@ class Game {
       if (!playerHit) {
         // DEALER LOGIC GOES HERE
         /** Source: https://bicyclecards.com/how-to-play/blackjack/
-         * When the dealer has served every player, the dealers face-down card is turned up. If the total is 17 or more, it must stand. 
-         * If the total is 16 or under, they must take a card. The dealer must continue to take cards until the total is 17 or more, at which point the dealer must stand. 
-         * If the dealer has an ace, and counting it as 11 would bring the total to 17 or more (but not over 21), the dealer must count the ace as 11 and stand. 
+         * When the dealer has served every player, the dealers face-down card is turned up. If the total is 17 or more, it must stand.
+         * If the total is 16 or under, they must take a card. The dealer must continue to take cards until the total is 17 or more, at which point the dealer must stand.
+         * If the dealer has an ace, and counting it as 11 would bring the total to 17 or more (but not over 21), the dealer must count the ace as 11 and stand.
          * The dealer's decisions, then, are automatic on all plays, whereas the player always has the option of taking one or more cards.
          */
-<<<<<<< HEAD
-         
-        
-=======
 
         //dealer must stand if their first two cards >= 17
-          if(this.calculateCardValue(this.dealer) < 17){
-            do{
-              this.dealer.push(BlackjackEngine.deck[
-                Math.floor(BlackjackEngine.deck.length * Math.random())]);
-            }while(this.calculateCardValue(this.dealer) < 17);
+        while (this.calculateCardValue(this.dealer) < 17) {
+          this.dealer.push(
+            BlackjackEngine.deck[
+              Math.floor(BlackjackEngine.deck.length * Math.random())
+            ]
+          );
+        }
+
+        //locking players out when they go broke
+        for (let p in this.players) {
+          //Betting payout
+          if (this.calculateCardValue(this.players[p].hand) > 21) {
+            this.players[p].bank = this.players[p].bank - this.players[p].bet;
           }
 
-          //locking players out when they go broke
->>>>>>> 0e04b2e4d47831044d69c71ffb87a17ae23dafac
-          for (let p in this.players) {
-
-              //Betting payout
-              if (this.calculateCardValue(this.players[p].hand) > 21) {
-                  this.players[p].bank = this.players[p].bank - this.players[p].bet;
-              }
-
-              if (this.calculateCardValue(this.dealer) > 21) {
-                  this.players[p].bank = this.players[p].bank + 2 * this.players[p].bet;
-              }
-
-              if (this.calculateCardValue(this.players[p].hand) > this.calculateCardValue(this.dealer)) {
-                  this.players[p].bank = this.players[p].bank + 2 * this.players[p].bet;
-              }
-
-              if (this.calculateCardValue(this.players[p].hand) <= this.calculateCardValue(this.dealer){
-                  this.players[p].bank = this.players[p].bank - this.players[p].bet;
-              }
-
-              //locking out player when they go broke
-              if (this.players[p].bank <= 0) {
-                  this.players[p].socket.disconnect(true);
-              }
-
+          if (this.calculateCardValue(this.dealer) > 21) {
+            this.players[p].bank =
+              this.players[p].bank + 2 * this.players[p].bet;
           }
 
+          if (
+            this.calculateCardValue(this.players[p].hand) >
+            this.calculateCardValue(this.dealer)
+          ) {
+            this.players[p].bank =
+              this.players[p].bank + 2 * this.players[p].bet;
+          }
+
+          if (
+            this.calculateCardValue(this.players[p].hand) <=
+            this.calculateCardValue(this.dealer)
+          ) {
+            this.players[p].bank = this.players[p].bank - this.players[p].bet;
+          }
+
+          //locking out player when they go broke
+          if (this.players[p].bank <= 0) {
+            this.players[p].socket.disconnect(true);
+          }
+        }
       }
     }
 
