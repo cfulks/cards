@@ -10,6 +10,20 @@
   position: absolute;
 }
 
+.board {
+  width: 300px;
+  background: #746a73;
+  position: fixed;
+  right:0;
+  font-family: "Dosis", sans-serif;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  font-size: 20px;
+  color: white;
+  text-align: center;
+}
+
+
 .bank-button {
   font-family: "Dosis", sans-serif;
   padding-top: 40px;
