@@ -87,8 +87,9 @@ class Blackjack extends React.Component {
             new Card(dealerHand.value, conversions[dealerHand.value - 1], dealerHand.suit, dealerHand.color, false, 0, 0),
             new Card("blank", "blank", "blank", "blank", true, 0, 0),
           ],
-          bank: bank,
-          turn: this.client.id === turn
+        bank: bank,
+        turn: this.client.id === turn,
+        bet: this.state.bets.map(bet => bet.bet = 0)
       });
 
       this.resizeHandler();
@@ -150,6 +151,8 @@ class Blackjack extends React.Component {
   render() {
     const { player, dealer, bets, currentBet, bank } = this.state;
 
+    console.log(bets);
+
     return (
       <div id="game">
         <div className="bank">
@@ -183,9 +186,10 @@ class Blackjack extends React.Component {
           </div>
         </div>
         <div className="board">
-            Board
-            {bets[0].playerName}
-            {bets[0].bet}
+          Board
+          <p>
+            {bets.map((bet) => "\n" + bet.playerName + ": " + "$" + bet.bet)}
+          </p>
         </div>
         <div className="game">
           <div className="options" onClick={this.hit}>
