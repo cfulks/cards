@@ -15,6 +15,7 @@ describe("GET Endpoint", () => {
 
     let filePaths = {
       blackjack: path.join(__dirname, "../../src/views/html/blackjack.html"),
+      join: path.join(__dirname, "../../src/views/html/join.html"),
       error: path.join(__dirname, "../../src/views/html/error.html"),
       home: path.join(__dirname, "../../src/views/html/index.html"),
       solitaire: path.join(__dirname, "../../src/views/html/solitaire.html"),
@@ -42,9 +43,15 @@ describe("GET Endpoint", () => {
   });
 
   it("should return blackjack page", async () => {
-    const res = await request(app).get("/blackjack");
+    const res = await request(app).get("/blackjack/0");
     expect(res.statusCode).toEqual(200);
     expect(res.text).toBe(html.blackjack);
+  });
+
+  it("should return join page", async () => {
+    const res = await request(app).get("/blackjack");
+    expect(res.statusCode).toEqual(200);
+    expect(res.text).toBe(html.join);
   });
 
   it("should return error page", async () => {
