@@ -14,7 +14,7 @@ class BlackjackController {
         BlackjackEngine.getGame(gameId).currentTurn(socketId) &&
         BlackjackEngine.getGame(gameId).calculateCardValue(
           BlackjackEngine.getGame(gameId).players[socketId].hand
-         ) < 21
+        ) < 21
       ) {
         BlackjackEngine.getGame(gameId).players[socketId].drawCard = true;
         BlackjackEngine.getGame(gameId).updateGame();
@@ -25,6 +25,7 @@ class BlackjackController {
   static stand(gameId, socketId) {
     return () => {
       if (BlackjackEngine.getGame(gameId).currentTurn(socketId)) {
+        BlackjackEngine.getGame(gameId).stand(socketId);
         BlackjackEngine.getGame(gameId).updateGame();
       }
     };

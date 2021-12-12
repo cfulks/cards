@@ -51,7 +51,7 @@ class Blackjack extends React.Component {
   }
 
   // prettier-ignore
-  resizeHandler() {
+  resizeHandler(showTopDealer=false) {
     const cardWidth = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0) * 0.07 / 2;
     const x = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0) / 2;
     const y = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0) / 2 - (x * 0.07 * 176) / 114 / 2;
@@ -60,7 +60,7 @@ class Blackjack extends React.Component {
     if (this.state.player.length !== 0) {
       this.setState({
         player: alignDeck(this.state.player, x - (50 * this.state.player.length-1 + cardWidth) / 2, y + y/4, undefined, false, true, 2, true),
-        dealer: alignDeck(this.state.dealer, x - (50 * this.state.dealer.length-1 + cardWidth) / 2, y - y/4, undefined, true, true, 2, true),
+        dealer: alignDeck(this.state.dealer, x - (50 * this.state.dealer.length-1 + cardWidth) / 2, y - y/4, undefined, !showTopDealer, true, 2, true),
       });
     }
 
@@ -68,13 +68,13 @@ class Blackjack extends React.Component {
   }
 
   componentWillUnmount() {
-    window.removeEventListener("resize", this.resizeHandler);
+    window.removeEventListener("resize", () => this.resizeHandler(false));
   }
 
   // prettier-ignore
   componentDidMount() {
-    window.addEventListener("resize", this.resizeHandler);
-    this.client.on("setup", (numOfPlayers, startingHand, dealerHand) => {
+    window.addEventListener("resize", () => this.resizeHandler(false));
+    this.client.on("setup", (numOfPlayers, startingHand, dealerHand, bank, turn) => {
       this.setState({
         playerCount: numOfPlayers,
         player: 
@@ -87,6 +87,8 @@ class Blackjack extends React.Component {
             new Card(dealerHand.value, conversions[dealerHand.value - 1], dealerHand.suit, dealerHand.color, false, 0, 0),
             new Card("blank", "blank", "blank", "blank", true, 0, 0),
           ],
+          bank: bank,
+          turn: this.client.id === turn
       });
 
       this.resizeHandler();
@@ -108,7 +110,14 @@ class Blackjack extends React.Component {
       this.setState({
         player: hand.map(c => new Card(c.value, conversions[c.value - 1], c.suit, c.color, false, 0, 0))
       })
-    })
+    });
+
+    this.client.on("show_dealer", (dealerHand, dealerValue) => {
+      this.setState({
+        dealer: dealerHand.map(c => new Card(c.value, conversions[c.value - 1], c.suit, c.color, false, 0, 0))
+      });
+      this.resizeHandler(true);
+    });
   }
 
   hit() {
@@ -123,7 +132,8 @@ class Blackjack extends React.Component {
         this.client.emit("bet", value, (verify) => {
           if (verify) {
             this.setState({
-              bank: this.state.bank - value,
+              currentBet: value,
+              bank: this.state.bank + this.state.currentBet - value,
             });
           }
         });
@@ -160,7 +170,7 @@ class Blackjack extends React.Component {
             <i className="fa fa-caret-down"></i>
           </button>
           <div className="container" style={{ display: "block" }}>
-            <button className="allin" onClick={this.bet(bank)}>
+            <button className="allin" onClick={this.bet(bank + currentBet)}>
               All In
             </button>
             <div className="pokerchip btn one" onClick={this.bet(1)}></div>

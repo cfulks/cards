@@ -18,6 +18,7 @@ const sockets = (io) => {
     socket.on("disconnect", () => {
       BlackjackEngine.getGame(gameId).removePlayer(socket.id);
       if (Object.keys(BlackjackEngine.getGame(gameId).players).length === 0) {
+        clearTimeout(BlackjackEngine.getGame(gameId).gameOverTimeout);
         BlackjackEngine.removeGame(gameId);
       } else {
         BlackjackEngine.getGame(gameId).playerTurn--;
