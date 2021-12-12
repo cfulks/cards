@@ -189,15 +189,15 @@ class Blackjack extends React.Component {
           </div>
         </div>
         <div className="board">
-          Board
+          <span>Board</span>
           <p>
             {bets.map((bet) =>
               inc-- == 0 ? (
-                <span style={{ color: "#00ff55" }}>
-                  {bet.playerName + ": " + "$" + bet.bet}
-                </span>
+                <span style={{ color: "#00ff55"}}>
+                  {bet.playerName + ": " + "$" + bet.bet + "\n"}
+                  </span>
               ) : (
-                bet.playerName + ": " + "$" + bet.bet
+                bet.playerName + ": " + "$" + bet.bet + "\n"
               )
             )}
           </p>
