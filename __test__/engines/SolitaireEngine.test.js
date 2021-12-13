@@ -1,6 +1,6 @@
 import { expect, it, jest } from "@jest/globals";
 import SolitaireEngine, { shuffleDeck } from "../../src/engines/SolitaireEngine";
-import {creategame} from "../../src/engines/SolitaireEngine";
+import {createGame} from "../../src/engines/SolitaireEngine";
 
 
 describe("SolitaireEngine", () => {
@@ -11,8 +11,8 @@ describe("SolitaireEngine", () => {
 
     beforeAll(() => {
        // solitaire = new SolitaireEngine();
-        orderedDeck = new SolitaireEngine.createGame();
-        shuffledDeck = new SolitaireEngine.shuffledDeck(orderedDeck);
+        orderedDeck = new createGame();
+        shuffledDeck = new shuffleDeck(orderedDeck);
     });
 
     describe("Creating deck", () => {
