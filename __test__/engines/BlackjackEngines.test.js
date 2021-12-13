@@ -9,7 +9,7 @@ describe("BlackjackEngine", () =>{
     beforeAll(() => {
         game = new Game();
         blackJackEngine = new BlackjackEngine();
-        blackJackEngine.build();
+        //blackJackEngine.build();
     });
 
     describe("CalculatingCardValue", () =>{
