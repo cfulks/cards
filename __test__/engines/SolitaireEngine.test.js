@@ -17,7 +17,7 @@ describe("SolitaireEngine", () => {
 
     describe("Creating deck", () => {
         it("deck contains 52 cards", () => {
-            expect(orderedDeck.deck.length()).toBe(52);
+            expect(orderedDeck.deck.length).toBe(52);
         });
         it("first card in deck is Ace of Hearts", () => {
             expect(orderedDeck.deck[0].value).toBe(1);

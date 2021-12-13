@@ -9,7 +9,7 @@ describe("BlackjackEngine", () =>{
     beforeAll(() => {
         game = new Game();
         blackJackEngine = new BlackjackEngine();
-        //blackJackEngine.build();
+        blackJackEngine.build();
     });
 
     describe("CalculatingCardValue", () =>{
@@ -59,7 +59,7 @@ describe("BlackjackEngine", () =>{
 
     describe("Build deck", () => {
         it("deck contains 52 cards", () => {
-            expect(blackJackEngine.deck.length()).toBe(52);
+            expect(blackJackEngine.deck.length).toBe(52);
         });
         it("first card in deck is Ace of Hearts", () => {
             expect(blackJackEngine.deck[0].value).toBe(1);
