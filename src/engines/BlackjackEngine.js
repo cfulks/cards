@@ -44,7 +44,7 @@ class BlackjackEngine {
   }
 }
 
-class Game {
+export class Game {
   players = {};
   dealer = [];
   playerTurn = 1;
