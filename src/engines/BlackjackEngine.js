@@ -178,21 +178,23 @@ export class Game {
     let handValue = 0;
     let numAces = 0;
 
-    for (let v = 0; v < hand.length; v++) {
-      if (hand[v].value === 1) {
-        numAces++;
-      } else if (hand[v].value >= 10) {
-        handValue += 10;
-      } else {
-        handValue += hand[v].value;
+    if(hand !== null){
+      for (let v = 0; v < hand.length; v++) {
+        if (hand[v].value === 1) {
+          numAces++;
+        } else if (hand[v].value >= 10) {
+          handValue += 10;
+        } else {
+          handValue += hand[v].value;
+        }
       }
-    }
-
-    if (numAces > 0) {
-      if (handValue + 11 + (numAces - 1) > 21) {
-        handValue += numAces;
-      } else {
-        handValue += 11 + (numAces - 1);
+  
+      if (numAces > 0) {
+        if (handValue + 11 + (numAces - 1) > 21) {
+          handValue += numAces;
+        } else {
+          handValue += 11 + (numAces - 1);
+        }
       }
     }
     return handValue;

@@ -22,9 +22,9 @@ describe("SolitaireEngine", () => {
       expect(orderedDeck.deck[0].color).toBe("Red");
     });
     it("last card in deck is 13 of clubs", () => {
-      expect(orderedDeck.deck[0].value).toBe(13);
-      expect(orderedDeck.deck[0].suit).toBe("clubs");
-      expect(orderedDeck.deck[0].color).toBe("Black");
+      expect(orderedDeck.deck[51].value).toBe(13);
+      expect(orderedDeck.deck[51].suit).toBe("clubs");
+      expect(orderedDeck.deck[51].color).toBe("Black");
     });
     it("deck is built in order", () => {
       let deck = [];
@@ -85,7 +85,7 @@ describe("SolitaireEngine", () => {
     });
     it("Allow shuffling of a NaN deck", () => {
       let deck = [{ value: "a", value: "b", value: "c" }];
-      expect(shuffleDeck(deck)).not.toThrow();
+      expect(shuffleDeck(deck)).toBeNaN();
       shuffleDeck(deck);
       expect(deck.length).toBe(3);
     });
