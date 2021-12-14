@@ -2,28 +2,21 @@ import React from "react";
 import ReactDOM from "react-dom";
 import io from "socket.io-client";
 import Card from "../../models/CardModel";
-import { alignDeck } from "../../engines/SolitaireEngine.js";
+import { alignDeck, conversions } from "../../engines/SolitaireEngine.js";
 
-const conversions = [
-  "A",
-  "two",
-  "three",
-  "four",
-  "five",
-  "six",
-  "seven",
-  "eight",
-  "nine",
-  "ten",
-  "J",
-  "Q",
-  "K",
-];
-
+/**
+ * Blackjack game rendering for the client. Any prettier-ignore comments are to help with
+ * keeping formatting uniform.
+ */
 class Blackjack extends React.Component {
+  // Specific socket.io-client for emitting events.
   client;
+  // Gets the gameId from the URL
   gameId = window.location.href.split("/").pop().split("#")[0].split("?")[0];
 
+  /**
+   * Creates a React component with the necessary information for a Blackjack game
+   */
   constructor() {
     super();
     this.client = io("localhost:8001", {
@@ -31,6 +24,9 @@ class Blackjack extends React.Component {
         id: this.gameId,
       },
       reconnection: false,
+      /* If connection is lost, we don't want misconfiguration to happen when
+       * the client reconnects, so we force them to reload the page and get a clean slate instead
+       */
     });
 
     this.state = {
@@ -44,13 +40,18 @@ class Blackjack extends React.Component {
       bank: 1000,
     };
 
+    // Binds methods to this
     this.bet = this.bet.bind(this);
     this.stand = this.stand.bind(this);
     this.hit = this.hit.bind(this);
-
     this.resizeHandler = this.resizeHandler.bind(this);
   }
 
+  /**
+   * Realigns the player and dealer decks and forces a client update. As is, this isn't perfect
+   * on smaller viewports
+   * @param {Boolean} showTopDealer whether to show the top dealer card
+   */
   // prettier-ignore
   resizeHandler(showTopDealer=false) {
     const cardWidth = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0) * 0.07 / 2;
@@ -72,6 +73,9 @@ class Blackjack extends React.Component {
     window.removeEventListener("resize", () => this.resizeHandler(false));
   }
 
+  /**
+   * Sets up the client for incoming events from the socket.io server
+   */
   // prettier-ignore
   componentDidMount() {
     window.addEventListener("resize", () => this.resizeHandler(false));
@@ -98,7 +102,7 @@ class Blackjack extends React.Component {
     });
 
     this.client.on("game_update", (numOfPlayers, dealerCardCount, bets, turn, turnNumber) => {
-      // any changes to dealer and other players
+      // Any changes to dealer and other players
       this.setState({
         playerCount: numOfPlayers,
         dealer: [...this.state.dealer, ...Array(Math.max(this.state.dealer.length - dealerCardCount, 0)).fill(new Card("blank", "blank", "blank", "blank", true, 0, 0))],
@@ -124,17 +128,25 @@ class Blackjack extends React.Component {
     });
   }
 
+  /**
+   * Allows the player to hit
+   */
   hit() {
     if (this.state.turn) {
       this.client.emit("hit");
     }
   }
 
+  /**
+   * Allows the player to bet
+   * @param {Number} value bet amount
+   */
   bet(value) {
-    if (this.state.turn) {
+    if (this.state.turn && this.state.player.length == 2) {
       return () => {
         this.client.emit("bet", value, (verify) => {
           if (verify) {
+            // Only update the bet locally if it worked
             this.setState({
               currentBet: value,
               bank: this.state.bank + this.state.currentBet - value,
@@ -145,12 +157,19 @@ class Blackjack extends React.Component {
     }
   }
 
+  /**
+   * Allows the player to stand
+   */
   stand() {
     if (this.state.turn) {
       this.client.emit("stand");
     }
   }
 
+  /**
+   * Renders the Blackjack game
+   * @returns the JSX object to be rendered by react
+   */
   render() {
     const { player, dealer, bets, currentBet, bank, turnNumber } = this.state;
 
@@ -193,9 +212,9 @@ class Blackjack extends React.Component {
           <p>
             {bets.map((bet) =>
               inc-- == 0 ? (
-                <span style={{ color: "#00ff55"}}>
+                <span style={{ color: "#00ff55" }}>
                   {bet.playerName + ": " + "$" + bet.bet + "\n"}
-                  </span>
+                </span>
               ) : (
                 bet.playerName + ": " + "$" + bet.bet + "\n"
               )

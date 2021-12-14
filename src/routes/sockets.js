@@ -1,6 +1,11 @@
 import BlackjackController from "../controllers/BlackjackController.js";
 import BlackjackEngine from "../engines/BlackjackEngine.js";
 
+/**
+ * Creates all the listening for socket connections in Blackjack
+ * @param {Server} io socket.io server for configuration
+ * @returns a configured socket.io server
+ */
 const sockets = (io) => {
   io.on("connection", (socket) => {
     const gameId = socket.handshake.query.id;
@@ -27,7 +32,7 @@ const sockets = (io) => {
     });
   });
 
-  BlackjackController.io = io;
+  // Builds the deck on server startup
   BlackjackEngine.build();
 
   return io;

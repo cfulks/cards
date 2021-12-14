@@ -8,8 +8,8 @@ import JoinController from "../controllers/JoinController.js";
 
 /**
  * Creates routes for the website
- * @param {Express} app
- * @returns app
+ * @param {Express} app to be configured
+ * @returns app configured with proper routing
  */
 const routes = (app) => {
   app.use(express.static("public"));
