@@ -14,6 +14,9 @@ import Card from "./Card.jsx";
 class Solitaire extends React.Component {
   timer;
 
+  /**
+   * Constructor to create a React component for Solitaire.
+   */
   constructor() {
     super();
 
@@ -41,6 +44,9 @@ class Solitaire extends React.Component {
     window.removeEventListener("resize", this.resizeHandler);
   }
 
+  /**
+   * Moves the game based on browser resizing and then forces a rerender.
+   */
   resizeHandler() {
     let a = calculatePositions();
     this.positions = a.positions;
@@ -48,6 +54,9 @@ class Solitaire extends React.Component {
     this._onMouseUp();
   }
 
+  /**
+   * Timer for the game
+   */
   stopwatch() {
     const clock = document.getElementById("display");
     let start = Date.now(),
@@ -63,6 +72,11 @@ class Solitaire extends React.Component {
     intervalId = setInterval(incrementTime, 1000);
   }
 
+  /**
+   * Handles moving cards to their proper stacks. A large portion of this method
+   * is dedicated to finding the cards moving and then the proper location that they should be moved to. For a card
+   * to move, it requires 50% overlap with the destination stack
+   */
   _onMouseUp() {
     out: for (let key in this.gameDeck) {
       if (key === "stack") {
@@ -86,6 +100,7 @@ class Solitaire extends React.Component {
                         i
                       )
                     ) {
+                      this.setState({ moves: this.state.moves + 1 });
                       break out;
                     }
                   }
@@ -103,6 +118,7 @@ class Solitaire extends React.Component {
                         i
                       )
                     ) {
+                      this.setState({ moves: this.state.moves + 1 });
                       break out;
                     }
                   }
@@ -147,6 +163,7 @@ class Solitaire extends React.Component {
                   k
                 )
               ) {
+                this.setState({ moves: this.state.moves + 1 });
                 break out;
               }
             }
@@ -163,6 +180,7 @@ class Solitaire extends React.Component {
                   i
                 )
               ) {
+                this.setState({ moves: this.state.moves + 1 });
                 break out;
               }
             }
@@ -184,6 +202,7 @@ class Solitaire extends React.Component {
                 k
               )
             ) {
+              this.setState({ moves: this.state.moves + 1 });
               break out;
             }
           }
@@ -199,6 +218,7 @@ class Solitaire extends React.Component {
                 this.gameDeck[key].length - 1
               )
             ) {
+              this.setState({ moves: this.state.moves + 1 });
               break out;
             }
           }
@@ -231,6 +251,10 @@ class Solitaire extends React.Component {
     this.forceUpdate();
   }
 
+  /**
+   * Handles moving cards across the screen, updating their position each time the mouse moves
+   * @param {MouseEvent} e move event for moving cards
+   */
   _onMouseMove(e) {
     this.setState({
       x: e.clientX,
@@ -280,6 +304,12 @@ class Solitaire extends React.Component {
     }
   }
 
+  /**
+   * This handles the rendering of the Solitaire game. The conditionals
+   * under each different deck will cause a blank card to be rendered if the
+   * deck is empty, making moving to that empty slot significantly easier since it's visible.
+   * @returns JSX object representing Solitaire for React to render
+   */
   render() {
     return (
       <div
@@ -300,7 +330,7 @@ class Solitaire extends React.Component {
           </div>
           <div className="moves">
             <label>Moves</label>
-            <span>0</span>
+            <span>{this.state.moves}</span>
           </div>
         </div>
         <div className="board">
@@ -463,6 +493,11 @@ class Solitaire extends React.Component {
   }
 }
 
+/**
+ * Mapping function for CardModels to their respective Cards
+ * @param {CardModel} card to be mapped
+ * @returns the associated internal card
+ */
 const cm = (card) => card.internalCard;
 
 ReactDOM.render(<Solitaire />, document.getElementById("main"));

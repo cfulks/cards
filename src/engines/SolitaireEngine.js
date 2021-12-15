@@ -1,6 +1,6 @@
 import Card from "../models/CardModel.js";
 
-const conversions = [
+export const conversions = [
   "A",
   "two",
   "three",
@@ -16,7 +16,12 @@ const conversions = [
   "K",
 ];
 
-const shuffleDeck = (deck) => {
+/**
+ * Generic shuffle method for arrays. Used for shuffling a solitaire deck before
+ * splitting it up into the proper piles
+ * @param {Object[]} deck list of any objects
+ */
+export const shuffleDeck = (deck) => {
   for (let i = 0; i < deck.length; i++) {
     let randIndex = Math.floor(Math.random() * deck.length);
     if (randIndex == deck.length) {
@@ -29,28 +34,17 @@ const shuffleDeck = (deck) => {
   }
 };
 
+/**
+ * Configures a game of Solitaire for the client to use
+ * @returns a new solitaire game
+ */
 export const createGame = () => {
   let deck = [];
   for (let i = 0; i < 13; i++) {
-    for (let j = 0; j < 4; j++) {
-      switch (j) {
-        case 0:
-          deck.push(new Card(i + 1, conversions[i], "hearts", "Red"));
-          break;
-        case 1:
-          deck.push(new Card(i + 1, conversions[i], "diamonds", "Red"));
-          break;
-        case 2:
-          deck.push(new Card(i + 1, conversions[i], "spades", "Black"));
-          break;
-        case 3:
-          deck.push(new Card(i + 1, conversions[i], "clubs", "Black"));
-          break;
-        default:
-          console.log("Suit Error");
-          break;
-      }
-    }
+    deck.push(new Card(i + 1, conversions[i], "hearts", "Red"));
+    deck.push(new Card(i + 1, conversions[i], "diamonds", "Red"));
+    deck.push(new Card(i + 1, conversions[i], "spades", "Black"));
+    deck.push(new Card(i + 1, conversions[i], "clubs", "Black"));
   }
 
   shuffleDeck(deck);
@@ -111,13 +105,28 @@ export const createGame = () => {
   };
 };
 
+/**
+ * Properly aligns all the cards in a list to be displayed on the screen. This helps with treating
+ * a deck of cards as a single entity when rendering rather than many different cards.
+ * @param {CardModel[]} cards list of cards to be aligned
+ * @param {Number} x starting x-coordinate of the bottom card
+ * @param {Number} y starting y-coordinate of the bottom card
+ * @param {Boolean} adjust whether the pile of cards should be staggered
+ * @param {Boolean} topDown whether the top card should be face down
+ * @param {Boolean} horizontal whether the cards should be staggered horizontally
+ * @param {Number} scale the staggering multiplier, or how much it should move each card
+ * @param {Boolean} unlimited whether the horizontal staggering should stop after 3 cards
+ * @returns the list of cards with the proper positioning
+ */
 export const alignDeck = (
   cards,
   x,
   y,
   adjust = true,
   topDown = false,
-  horizontal = false
+  horizontal = false,
+  scale = 1,
+  unlimited = false
 ) => {
   for (
     let i = horizontal ? cards.length - 1 : 0;
@@ -125,21 +134,36 @@ export const alignDeck = (
     horizontal ? i-- : i++
   ) {
     if (horizontal || (i === cards.length - 1 && !topDown)) {
-      cards[i].hidden = false;
+      if (!topDown) {
+        cards[i].hidden = false;
+      }
     }
 
     cards[i].inHand = false;
 
     Object.assign(cards[i].internalCard.props.position, { x: 0, y: 0 });
-    cards[i].updateCardPosition(
-      x + (horizontal ? ((i + 3 - (cards.length % 3)) % 3) * 25 : 0),
-      y + (!horizontal && adjust ? i * 20 : 0)
-    );
+
+    if (unlimited) {
+      cards[i].updateCardPosition(
+        x + (horizontal ? i * 25 * scale : 0),
+        y + (!horizontal && adjust ? i * 20 * scale : 0)
+      );
+    } else {
+      cards[i].updateCardPosition(
+        x + (horizontal ? ((i + 3 - (cards.length % 3)) % 3) * 25 * scale : 0),
+        y + (!horizontal && adjust ? i * 20 * scale : 0)
+      );
+    }
   }
 
   return cards;
 };
 
+/**
+ * Creates a list of positions for the entire game of solitaire based on the
+ * client's browser siez. The math behind the numbers below is based on base card dimensions
+ * from the css.
+ */
 export const calculatePositions = () => {
   const vw =
     Math.max(
@@ -176,6 +200,18 @@ export const calculatePositions = () => {
   };
 };
 
+/**
+ * Handles moving cards from the foundation piles, discard pile, and stacks to other stacks.
+ * @param {Number} x x-coordinate of the stack being moved
+ * @param {Number} y y-coordinate of the stack being moved
+ * @param {Object} cardSize width and height of a card
+ * @param {Object} gameDeck Solitaire game configuration
+ * @param {String} key the stack type the cards are moving to
+ * @param {String} fKey the stack type the cards are moving from
+ * @param {Number} i the specific stack in a list of stacks the cards are moving to
+ * @param {Number} j the specific stack in a list of stacks the cards are moving from
+ * @returns whether the stack was moved
+ */
 export const moveToStack = (x, y, cardSize, gameDeck, key, fKey, i, j) => {
   let stack = gameDeck["stack"][fKey];
   let fromStack;
@@ -210,6 +246,17 @@ export const moveToStack = (x, y, cardSize, gameDeck, key, fKey, i, j) => {
   return false;
 };
 
+/**
+ * Handles moving cards from the discard pile or the stacks to the foundation piles
+ * @param {Number} x x-coordinate of the card being moved
+ * @param {Number} y y-coordinate of the card being moved
+ * @param {Object} cardSize width and height of a card
+ * @param {Object} gameDeck Solitaire game configuration
+ * @param {String} key the location the card is coming from
+ * @param {String} fKey the specific foundation stack.
+ * @param {Number} i if the card is coming from the stacks, this is which specific stack
+ * @returns whether the card was moved to the foundation pile
+ */
 export const moveToFoundation = (
   x,
   y,
@@ -252,16 +299,19 @@ export const moveToFoundation = (
   return false;
 };
 
-// This needs to keep order but it doesn't
-// Align Deck: Draw cards only returns 2 if the first hand is drawn from
-export const drawCards = (gameDeck) => {
+/**
+ * Rotates through the deck and discard piles for Solitaire
+ * @param {Object} gameDeck a Solitaire game under the same form as one created in createGame
+ * @param {Number} drawCount the number of cards to be drawn
+ */
+export const drawCards = (gameDeck, drawCount = 3) => {
   if (gameDeck.deck.length === 0 && gameDeck.discard.length > 0) {
     gameDeck.deck = gameDeck.discard.splice(0);
     gameDeck.deck.forEach((card) => (card.hidden = true));
     gameDeck.deck.reverse();
   } else {
-    let need = 3 - gameDeck.deck.length;
-    gameDeck.discard.push(...gameDeck.deck.splice(-3));
+    let need = drawCount - gameDeck.deck.length;
+    gameDeck.discard.push(...gameDeck.deck.splice(-drawCount));
 
     if (need > 0) {
       gameDeck.discard.push(...gameDeck.discard.splice(0, need));
@@ -269,6 +319,14 @@ export const drawCards = (gameDeck) => {
   }
 };
 
+/**
+ * Calculates the amount of overlap between two congruent rectanges taking in their upper left most coordinates
+ * and the width/height.
+ *
+ * @param {Number} CC the number of cards in the vertical pile
+ *
+ * @returns the decimal overlap of the rectangles
+ */
 const overlapRect = (X1, Y1, X2, Y2, W, H, CC = 0) => {
   let SI =
     Math.max(0, Math.min(X1 + W, X2 + W) - Math.max(X1, X2)) *

@@ -1,6 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+/**
+ * Card class for rendering a card in both games.
+ */
 class Card extends React.Component {
   constructor(props) {
     super(props);
@@ -29,10 +32,10 @@ class Card extends React.Component {
             position: "absolute",
             top: position.y,
             left: position.x,
-            ...(moving && { zIndex: 100000 }),
+            ...(moving && { zIndex: 100000 }), // Cards should be on the very top if they're moving
           }}
           className={hidden ? "card back" : ["card", value, suit].join(" ")}
-          onMouseDown={() => pickUpCard(true)}
+          onMouseDown={() => pickUpCard(true)} // Updates the CardModel that the card was picked up
           key={value + suit}
         ></span>
       );
